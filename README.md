@@ -19,7 +19,7 @@ Nous avons choisi 2 jeux de données :
   * runtimeMinutes – temps
   * genres - genre du média
 
-* UFO Sightings
+* UFO Sightings - format CSV
   * datetime - heure à laquelle l'événement s'est produit
   * city - ville
   * state - état
