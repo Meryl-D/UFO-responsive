@@ -1,5 +1,8 @@
 # VisualDon | E.T. où es-tu ?
 
+## Wireframe
+https://www.figma.com/file/QrFxMZ8hBlbmSt66Qh2uM9/UFO?node-id=0%3A1
+
 ## Thématique
 
 ### Contexte
@@ -32,7 +35,7 @@ Nous avons choisi 2 jeux de données :
   * latitude - latitude
 
 ### But
-Une partie de la population mondiale, en particulier les américains, sont fascinés par les OVNIs.  Nous sommes curieuse de découvrir si les descriptions que les personnes ont fait correspondent à l’OVNI d’un film en particulier, par exemple la forme. Ainsi, la sortie du film et l’observation réelle pourraient avoir un lien. Il serait intéressant également de voir s'il y a plus de gens qui ont vu des OVNIs après la sortie d'un film sur le sujet.
+Une partie de la population mondiale, en particulier les américains, sont fascinés par les OVNIs.  Nous sommes curieuses de découvrir si les descriptions que les personnes ont fait correspondent à l’OVNI d’un film en particulier, par exemple la forme. Ainsi, la sortie du film et l’observation réelle pourraient avoir un lien. Il serait intéressant également de voir s'il y a plus de gens qui ont vu des OVNIs après la sortie d'un film sur le sujet.
 
 ### Références
 Pour les données IMDB il y a, bien entendu, la plateforme elle-même. En ce qui concerne UFO Sightings, nous avons trouvé une carte interactive https://www.arcgis.com/apps/webappviewer/index.html?id=ddda71d5211f47e782b12f3f8d06246e.
