@@ -1,11 +1,5 @@
 const path = require('path');const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-    template: './public/index.html',
-    filename: 'index.html',
-    inject: 'body'
-})
-
 module.exports = {
     name: 'browser',
     mode: 'development',
@@ -14,8 +8,13 @@ module.exports = {
         path: path.resolve('dist'),
         filename: 'index_bundle.js'
     },
+
     module: {
         rules: [
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
             { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
             {test: /\.csv$/, loader: 'csv-loader', options: {
                     dynamicTyping: true,
@@ -25,5 +24,17 @@ module.exports = {
             }
         ]
     },
-    plugins: [HtmlWebpackPluginConfig]
+
+    plugins: [
+    new HtmlWebpackPlugin({
+        template: './public/index.html',
+        filename: 'index.html',
+        inject: 'body'
+    }),
+
+    new HtmlWebpackPlugin({
+        template: './public/map.html',
+        filename: 'map.html'
+      })
+    ]
 }
