@@ -1,0 +1,24 @@
+#info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+#map {
+    flex: 2;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 80%;
+    background-color: white;
+    padding: 2em;
+    border-radius: 40px;
+}
+
+.graph-container, .movie {
+    flex: 1;
+}
