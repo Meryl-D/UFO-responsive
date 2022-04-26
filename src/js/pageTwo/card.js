@@ -1,42 +1,13 @@
 import * as d3 from 'd3';
-import { ufoData } from "/src/js/ufoData.js";
+import { maxAmountRounded, entriesPerYear, dateYearData } from "/src/js/ufoData.js";
 
 /**--------------------------------
  Graphe du nombre d'entrées par an
  --------------------------------*/
-
-const shape = 'fireball';
-
-// Retransforme les chaines en date et formatte la date.
-const parseTime = d3.timeParse('%m/%d/%Y %H:%M');
-const dateFormat = d3.timeFormat('%Y');
-const parseYear = d3.timeParse('%Y');
-
-// Ne prend que les entrées avec la forme définie au préalable (sera déterminée par un clic de l'utilisateur)
-const shapeData = ufoData.filter(d => d.shape == shape);
-
-// Fait un tableau de dates pour pouvoir ensuite les compter.
-const stringYearData = shapeData.map(d => dateFormat(parseTime(d.datetime)));
-const dateYearData = stringYearData.map(d => parseYear(d));
-
-// Compte le nombre d'entrée par année.
-const count = {};
-
-for (const year of stringYearData) {
-    count[year] = count[year] ? count[year] + 1 : 1;
-}
-// Crée un tableau avec pour clé l'année et pour valeur le nombre d'entrées.
-const entriesPerYear = [];
-
-for (const [year, amount] of Object.entries(count)) {
-    entriesPerYear.push({
-        'year' : parseYear(year),
-        'amount' : amount
-    })
-}
+d3.formatDefaultLocale('fr_FR');
 
 // Défini les dimensions et marges du graphe
-const margin = { top: 0, right: 0, bottom: 20, left: 30 },
+const margin = { top: 10, right: 15, bottom: 20, left: 35 },
     width = parseInt(d3.select('.graph-container').style('width'), 10) - margin.left - margin.right,
     height = parseInt(d3.select('.graph-container').style('height'), 10) - margin.top - margin.bottom;
 
@@ -48,28 +19,28 @@ const svg = d3.select(".graph-container")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-
-
-// Ajoute l'axe X --> it is a date format
+// Ajoute l'axe X --> format de date
 const x = d3.scaleTime()
     .domain(d3.extent(dateYearData, d => d))
-    .range([0, width]);
+    .range([0, width])
+
 svg.append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x).tickValues(x.ticks(4).concat(x.domain())));
 
-// Add Y axis
-const y = d3.scaleLinear()
-    .domain([0, d3.max(entriesPerYear, d => d.amount)])
+// Ajoute l'axe Y
+const y = d3.scaleSqrt()
+    .domain([0, maxAmountRounded])
     .range([height, 0]);
-svg.append("g")
-    .call(d3.axisLeft(y));
 
-// Add the area
+svg.append("g")
+    .call(d3.axisLeft(y).tickValues(y.ticks(4).concat(maxAmountRounded)));
+
+// Ajoute le graphe
 svg.append("path")
     .datum(entriesPerYear)
-    .attr("fill", "#cce5df")
-    .attr("stroke", "#69b3a2")
+    .attr("fill", "#1BAFB1")
+    .attr("stroke", "#0E5758")
     .attr("stroke-width", 1.5)
     .attr("d", d3.area()
         .x(d => x(d.year))
