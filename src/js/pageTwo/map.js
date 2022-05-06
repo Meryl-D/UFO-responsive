@@ -1,7 +1,8 @@
 import * as d3 from 'd3';
-import { shapeData } from "/src/js/ufoData.js";
+import { shapeData, randSightings } from "/src/js/ufoData.js";
 import L from 'leaflet';
 import 'leaflet.heat';
+import alienIcon from '/assets/img/alien-pin-shadow.png';
 
 /**--------------------------
  Carte géographique
@@ -20,6 +21,7 @@ const mapLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}
 
 // défini les limites de la carte.
 const bounds = map.getBounds();
+console.log(bounds);
 
 // défini les limites de la carte et l'animation quand l'utilisateur arrive au bord.
 map.setMaxBounds(bounds);
@@ -34,6 +36,23 @@ L.control.zoom({
     position: 'bottomright'
 }).addTo(map);
 
+
+/**--------------------------
+ Marqueurs et popups
+ --------------------------*/
+const alienPin = L.icon({
+    iconUrl: alienIcon,
+
+    iconSize:     [23, 30], // size of the icon
+    iconAnchor:   [12, 29], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+});
+
+// Ajoute les marqueurs
+randSightings.forEach(sighting => {
+    let marker = L.marker([sighting.latitude, sighting.longitude], {icon: alienPin}).addTo(map);
+    marker.bindPopup(`\"${sighting.comments}\"`);
+})
 
 
 /**--------------------------

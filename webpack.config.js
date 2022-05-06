@@ -6,7 +6,8 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve('dist'),
-        filename: 'index_bundle.js'
+        filename: 'index_bundle.js',
+        assetModuleFilename: 'assets/img/[name].[ext]'
     },
 
     module: {
@@ -15,12 +16,24 @@ module.exports = {
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"],
             },
-            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            {test: /\.csv$/, loader: 'csv-loader', options: {
+            { 
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.csv$/,
+                loader: 'csv-loader',
+                options: 
+                {
                     dynamicTyping: true,
                     header: true,
                     skipEmptyLines: true
                 }
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
             }
         ]
     },

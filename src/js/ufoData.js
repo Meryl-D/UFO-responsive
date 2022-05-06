@@ -1,4 +1,5 @@
 import allUfoData from '/data/ufo-sighting/complete.csv';
+import { getRandomInt } from './lib/math.js';
 import * as d3 from 'd3';
 
 export const shape = 'circle';
@@ -40,6 +41,46 @@ export const ufoData = cleanedData.filter(d =>
     d.shape === 'fireball'
 )
 
+// Ne prend que les entrées avec la forme définie au préalable (sera déterminée par un clic de l'utilisateur)
+export const shapeData = ufoData.filter(d => d.shape == shape);
+
+
+/*--------------------------------------------------------
+ Filtrer les données pour les marqueurs sur la carte
+--------------------------------------------------------*/
+export const randSightings = [];
+
+for (let i = 1; i <= 5; i++) {
+
+    const randIndex = getRandomInt(0, shapeData.length);
+
+    const lat = shapeData[randIndex].latitude;
+    const lng = shapeData[randIndex].longitude;
+
+    // Permet de ne pas avoir des marqueurs trop proches les uns des autres
+    while (isTooClose(lat, lng, randSightings)) {
+        randIndex = getRandomInt(0, shapeData.length);
+        lat = shapeData[randIndex].latitude;
+        lng = shapeData[randIndex].longitude;
+    }
+
+    randSightings.push(shapeData[randIndex]);    
+}
+
+function isTooClose(lat, lng, array) {
+    if (!array.length) return;
+
+    let isTooClose = false;
+    let i = 0;
+
+    while (i < array.length && !isTooClose) {
+        if (Math.abs(array[i].latitude - lat) < 2 || Math.abs(array[i].longitude - lng) < 2) isTooClose = true;
+        i++
+    }
+
+    return isTooClose;
+}
+
 
 /*--------------------------------------------------------
  Filtrage des données pour le graphe d'entrées par année
@@ -48,10 +89,7 @@ export const ufoData = cleanedData.filter(d =>
 // Retransforme les chaines en date et formatte la date.
 const parseTime = d3.timeParse('%m/%d/%Y %H:%M');
 const dateFormat = d3.timeFormat('%Y');
-const parseYear = d3.timeParse('%Y');
-
-// Ne prend que les entrées avec la forme définie au préalable (sera déterminée par un clic de l'utilisateur)
-export const shapeData = ufoData.filter(d => d.shape == shape);
+export const parseYear = d3.timeParse('%Y');
 
 // Fait un tableau de dates pour pouvoir ensuite les compter.
 const stringYearData = shapeData.map(d => dateFormat(parseTime(d.datetime)));
@@ -76,3 +114,4 @@ for (const [year, amount] of Object.entries(count)) {
 
 // défini le nombre d'entrées max.
 export const maxAmountRounded = Math.ceil(d3.max(Object.values(count)) / 100) * 100;
+
