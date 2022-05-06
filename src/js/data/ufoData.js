@@ -2,7 +2,7 @@ import allUfoData from '/data/ufo-sighting/complete.csv';
 import { getRandomInt } from '../lib/math.js';
 import * as d3 from 'd3';
 
-export const shape = 'circle';
+export const shape = 'unknown';
 
 // Retransforme les chaines en date et formatte la date.
 const parseTime = d3.timeParse('%m/%d/%Y %H:%M');

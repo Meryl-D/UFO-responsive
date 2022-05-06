@@ -62,10 +62,30 @@ svg.append("path")
         .y1(d => y(d.amount))
     )
 
-const movieInfo = movieData.filter(movie => movie.shape == shape);
 
+/**--------------------------------
+ Infos sur le film
+ --------------------------------*/
+const movieInfoArr = movieData.filter(movie => movie.shape == shape);
+const movieInfo = movieInfoArr[0];
+
+// Ajoute les infos sur le film dans la card
+const movieContainer = d3.select('.movie');
+const moviePoster = require(`../../../assets/img/${movieInfo.img}`);
+
+movieContainer.select('.movie-poster').attr('src', moviePoster);
+
+movieContainer.select('.title').text(movieInfo.title);
+movieContainer.select('.synopsis').text(movieInfo.synopsis);
+movieContainer.select('.release-year').text(movieInfo.releaseYear);
+movieContainer.select('.pg').text(movieInfo.pg);
+movieContainer.select('.duration').text(movieInfo.duration);
+movieContainer.select('.director').text(movieInfo.director);
+movieContainer.select('.stars').text(movieInfo.stars);
+
+// Ajoute le trait sur le graphe
 svg.selectAll("myLine")
-    .data(movieInfo)
+    .data(movieInfoArr)
     .enter()
     .append("line")
     .attr("x1", d => x(d.releaseYear))
@@ -74,8 +94,9 @@ svg.selectAll("myLine")
     .attr("y2", y(0))
     .attr("stroke", "#fff");
 
+// Ajoute le titre sur le graphe
 svg.selectAll(".text")
-    .data(movieInfo)
+    .data(movieInfoArr)
     .enter()
     .append("text")
     .attr("class", "label")

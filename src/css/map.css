@@ -3,7 +3,9 @@ main {
         height: 100%;
 }
 
-
+/**-------------
+ Map
+--------------*/
 #map {
     position: fixed;
     width:100%;
@@ -25,17 +27,21 @@ main {
 
 .leaflet-popup-content {
     color: var(--primary-color);
-    font-weight: 500;
+    font-weight: 400;
     font-size: 0.75rem;
 }
+
+
+/**-------------
+ Card
+---------------*/
 
 .card {
     display: flex;
     flex-direction: column;
-
     position: absolute;
     z-index: 20;
-    width: clamp(400px, 40vw, 500px);
+    width: clamp(420px, 40vw, 500px);
     height: calc(100% - var(--window-margin) * 2);
     margin: var(--window-margin);
     padding: 2rem;
@@ -44,14 +50,76 @@ main {
     box-shadow: 0px 0px 15px 6px rgba(0,0,0,0.8);
 }
 
-.movie {
-    flex: 2;
+.card h2 {
+    color: var(--text-color);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    width: 100%;
 }
 
-.movie em {
-    font-style: normal;
+
+/**-------------
+ Film
+---------------*/
+
+.movie {
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(65% - 4rem);
+}
+
+.movie img {
+    max-height: calc(100% - 2.1rem);
+}
+
+.movie .info {
+    flex: 1;
+    padding-left: 1.1rem;
+}
+
+.movie .title {
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    font-weight: 500;
+    text-transform: uppercase;
     color: var(--highlights-color);
 }
+
+.movie .prod, .movie .prod span, .director, .stars {
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    font-weight: 400;
+    color: #7A7A7A;
+}
+
+.movie .prod, .movie .prod span {
+    padding: .5rem 0;
+}
+
+.movie .synopsis {
+    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    font-weight: 300;
+    line-height: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+.movie .material-symbols-rounded {
+    font-size: 1.1rem;
+    padding-right: .5rem;
+    font-weight: 400;
+    color: #7A7A7A;
+}
+
+.movie .dir-container, .movie .stars-container {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: .5rem 0 0 0;
+    line-height: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+
+/**-------------------------
+ Graphe
+--------------------------*/
 
 .graph {
     flex: 1;
@@ -68,16 +136,15 @@ main {
 
 .card-divider {
     margin: 1.5rem 0;
+    width: 100%;
     border: 0;
     border-top: 1px solid var(--text-color);
 }
 
-h2 {
-    color: var(--text-color);
-    font-size: 1.1rem;
-    margin: 0 0 1rem 0;
-    /* font-size: clamp(); */
-}
+
+/**-------------------------
+ Nav et boutons
+--------------------------*/
 
 nav {
     display: flex;
