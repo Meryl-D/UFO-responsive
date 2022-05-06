@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
-import { maxAmountRounded, entriesPerYear, dateYearData, parseYear, shape } from "/src/js/ufoData.js";
+import { maxAmountRounded, entriesPerYear, dateYearData, shape } from "/src/js/data/ufoData.js";
+import { movieData } from '/src/js/data/movieData.js';
 
 /**--------------------------------
  Changement dynamique du titre
@@ -17,7 +18,7 @@ import { maxAmountRounded, entriesPerYear, dateYearData, parseYear, shape } from
 d3.formatDefaultLocale('fr_FR');
 
 // Défini les dimensions et marges du graphe
-const margin = { top: 7, right: 12, bottom: 16, left: 29 },
+const margin = { top: 7, right: 12, bottom: 16, left: 31 },
     width = parseInt(d3.select('.graph').style('width'), 10) - margin.left - margin.right,
     height = parseInt(d3.select('.graph').style('height'), 10) - margin.top - margin.bottom;
 
@@ -39,12 +40,15 @@ svg.append("g")
     .call(d3.axisBottom(x).tickValues(x.ticks(4).concat(x.domain())));
 
 // Ajoute l'axe Y
+let maxRounded = maxAmountRounded;
+if (maxAmountRounded / 100 % 2 != 0 && maxAmountRounded < 1000) maxRounded += 100;
+
 const y = d3.scaleSqrt()
-    .domain([0, maxAmountRounded])
+    .domain([0, maxRounded])
     .range([height, 0]);
 
 svg.append("g")
-    .call(d3.axisLeft(y).tickValues(y.ticks(4).concat(maxAmountRounded)));
+    .call(d3.axisLeft(y).tickValues(y.ticks(4).concat(maxRounded)));
 
 // Ajoute le graphe
 svg.append("path")
@@ -58,31 +62,25 @@ svg.append("path")
         .y1(d => y(d.amount))
     )
 
-const exempleData = [{
-    title: "E.T. the Extra-Terrestrial",
-    releaseDate: parseYear("1982"),
-    duration: "1h55m",
-    synopsis: "Un enfant prend son courage à deux mains et décide d'aider un ami extra-terrestre à s'échapper de la Terre pour rentrer sur sa planète natale.",
-    director: "Steven Spielberg"
-}]
+const movieInfo = movieData.filter(movie => movie.shape == shape);
 
 svg.selectAll("myLine")
-    .data(exempleData)
+    .data(movieInfo)
     .enter()
     .append("line")
-    .attr("x1", d => x(d.releaseDate))
-    .attr("x2", d => x(d.releaseDate))
-    .attr("y1", d => y(maxAmountRounded / 2))
+    .attr("x1", d => x(d.releaseYear))
+    .attr("x2", d => x(d.releaseYear))
+    .attr("y1", d => y(maxRounded / 2))
     .attr("y2", y(0))
     .attr("stroke", "#fff");
 
 svg.selectAll(".text")
-    .data(exempleData)
+    .data(movieInfo)
     .enter()
     .append("text")
     .attr("class", "label")
-    .attr("x", d => x(d.releaseDate))
-    .attr("y", d => y(maxAmountRounded / 2 + 60))
+    .attr("x", d => x(d.releaseYear))
+    .attr("y", d => y(maxRounded / 2 + 60))
     //.attr("dy", ".75em")
     .attr("text-anchor", "middle")
     .attr("fill", "#fff")

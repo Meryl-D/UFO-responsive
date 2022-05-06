@@ -57,6 +57,10 @@ main {
     flex: 1;
 }
 
+.label {
+    font-size: 0.7rem;
+}
+
 /* Couleurs du graphe */
 .domain, .tick {
     color: var(--text-color);

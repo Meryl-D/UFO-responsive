@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { shapeData, randSightings } from "/src/js/ufoData.js";
+import { shapeData, randSightings } from "/src/js/data/ufoData.js";
 import L from 'leaflet';
 import 'leaflet.heat';
 import alienIcon from '/assets/img/alien-pin-shadow.png';
@@ -21,7 +21,6 @@ const mapLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}
 
 // défini les limites de la carte.
 const bounds = map.getBounds();
-console.log(bounds);
 
 // défini les limites de la carte et l'animation quand l'utilisateur arrive au bord.
 map.setMaxBounds(bounds);

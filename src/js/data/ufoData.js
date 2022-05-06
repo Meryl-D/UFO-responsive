@@ -1,8 +1,13 @@
 import allUfoData from '/data/ufo-sighting/complete.csv';
-import { getRandomInt } from './lib/math.js';
+import { getRandomInt } from '../lib/math.js';
 import * as d3 from 'd3';
 
 export const shape = 'circle';
+
+// Retransforme les chaines en date et formatte la date.
+const parseTime = d3.timeParse('%m/%d/%Y %H:%M');
+const dateFormat = d3.timeFormat('%Y');
+export const parseYear = d3.timeParse('%Y');
 
 
 /*-----------------------------------------
@@ -15,7 +20,8 @@ const cleanedData = allUfoData.filter(d =>
     d.comments != null && 
     d.latitude != null &&
     d.longitude != null &&
-    d.country === 'us'
+    d.country === 'us' &&
+    parseTime(d.datetime) >= parseTime('01/01/1940 00:00')
 )
 
 const orderByOccurrence = (data, property) => {
@@ -43,7 +49,6 @@ export const ufoData = cleanedData.filter(d =>
 
 // Ne prend que les entrées avec la forme définie au préalable (sera déterminée par un clic de l'utilisateur)
 export const shapeData = ufoData.filter(d => d.shape == shape);
-
 
 /*--------------------------------------------------------
  Filtrer les données pour les marqueurs sur la carte
@@ -85,11 +90,6 @@ function isTooClose(lat, lng, array) {
 /*--------------------------------------------------------
  Filtrage des données pour le graphe d'entrées par année
 --------------------------------------------------------*/
-
-// Retransforme les chaines en date et formatte la date.
-const parseTime = d3.timeParse('%m/%d/%Y %H:%M');
-const dateFormat = d3.timeFormat('%Y');
-export const parseYear = d3.timeParse('%Y');
 
 // Fait un tableau de dates pour pouvoir ensuite les compter.
 const stringYearData = shapeData.map(d => dateFormat(parseTime(d.datetime)));

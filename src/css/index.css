@@ -29,14 +29,14 @@ body {
     src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/Franklin_Gothic_Heavy_Regular.woff);
 }
 
-text { 
+/* text { 
     font-size: 63px;
     font-family: FranklinGothic-Heavy, Frankin Gothic, sans-serif;
     font-weight: 900; 
     text-transform: uppercase;
     letter-spacing: 21px;
     fill: white;
-}
+} */
 
 h1{
     font-family: sans-serif;
