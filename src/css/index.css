@@ -30,9 +30,8 @@ body {
 } */
 
 
-text { 
-    font-size: 63px;
-    font-family: 'Rubik', sans-serif;
+.UfoName { 
+    font-size:63px;
     font-weight: 900; 
     text-transform: uppercase;
     letter-spacing: 21px;
