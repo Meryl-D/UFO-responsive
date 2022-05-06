@@ -24,14 +24,14 @@ body {
 
 
 /* ----- T E X T   S T Y L E ----- */
-@font-face {
+/* @font-face {
     font-family: FranklinGothic-Heavy;
     src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/Franklin_Gothic_Heavy_Regular.woff);
-}
+} */
 
-/* text { 
-    font-size: 63px;
-    font-family: FranklinGothic-Heavy, Frankin Gothic, sans-serif;
+
+.UfoName { 
+    font-size:63px;
     font-weight: 900; 
     text-transform: uppercase;
     letter-spacing: 21px;
@@ -43,10 +43,6 @@ h1{
     color: white;
 }
 
-/* ----- H O M E P A G E   S T Y L E ----- */
-body {
-    background-color: #18203D;
-}
 
 /* ----- M A P   P A G E ----- */
 #map {
@@ -62,4 +58,4 @@ body {
 
 /* ----- F I R E B A L L   U F O   S H A P E ----- */
 
-circle { fill: #FAFF00; }
+#circle { fill: #FAFF00; }
