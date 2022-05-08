@@ -1,8 +1,7 @@
 import allUfoData from '/data/ufo-sighting/complete.csv';
 import { getRandomInt } from '../lib/math.js';
 import * as d3 from 'd3';
-
-export const shape = 'unknown';
+import { storage } from '/src/js/lib/storage.js';
 
 // Retransforme les chaines en date et formatte la date.
 const parseTime = d3.timeParse('%m/%d/%Y %H:%M');
@@ -15,61 +14,72 @@ export const parseYear = d3.timeParse('%Y');
 -----------------------------------------*/
 
 // nettoie une première fois les données
-const cleanedData = allUfoData.filter(d => 
-    d.shape != null && 
-    d.comments != null && 
+const cleanedData = allUfoData.filter(d =>
+    d.shape != null &&
+    d.comments != null &&
     d.latitude != null &&
     d.longitude != null &&
     d.country === 'us' &&
     parseTime(d.datetime) >= parseTime('01/01/1940 00:00')
 )
 
-const orderByOccurrence = (data, property) => {
-    let counts = {};
-
-    data.forEach(object => {
-        if(!counts[object[property]]) counts[object[property]] = 0;
-        counts[object[property]]++;
-    });
-
-    return Object.entries(counts).sort((a,b) => b[1]-a[1]);
-}
-
 // permet de voir quelles formes sont les plus populaires
-orderByOccurrence(cleanedData, 'shape');
+// const orderByOccurrence = (data, property) => {
+//     let counts = {};
+
+//     data.forEach(object => {
+//         if(!counts[object[property]]) counts[object[property]] = 0;
+//         counts[object[property]]++;
+//     });
+
+//     return Object.entries(counts).sort((a,b) => b[1]-a[1]);
+// }
+
+// orderByOccurrence(cleanedData, 'shape');
 
 //  Sélectionne les données pour le top 5 des formes.
-export const ufoData = cleanedData.filter(d => 
-    d.shape === 'light' || 
-    d.shape === 'circle' || 
-    d.shape === 'triangle' || 
-    d.shape === 'unknown' || 
+export const ufoData = cleanedData.filter(d =>
+    d.shape === 'light' ||
+    d.shape === 'circle' ||
+    d.shape === 'triangle' ||
+    d.shape === 'unknown' ||
     d.shape === 'fireball'
 )
 
-// Ne prend que les entrées avec la forme définie au préalable (sera déterminée par un clic de l'utilisateur)
-export const shapeData = ufoData.filter(d => d.shape == shape);
+export function filterShapeData() {
+    const shape = storage.getItem('shape');
+
+    // Ne prend que les entrées avec la forme définie au préalable (sera déterminée par un clic de l'utilisateur)
+    return ufoData.filter(d => d.shape == shape);
+
+}
 
 /*--------------------------------------------------------
  Filtrer les données pour les marqueurs sur la carte
 --------------------------------------------------------*/
-export const randSightings = [];
+export function getRandSightings() {
+    const shapeData = filterShapeData();
 
-for (let i = 1; i <= 5; i++) {
+    const randSightings = [];
 
-    const randIndex = getRandomInt(0, shapeData.length);
+    for (let i = 1; i <= 5; i++) {
 
-    const lat = shapeData[randIndex].latitude;
-    const lng = shapeData[randIndex].longitude;
+        const randIndex = getRandomInt(0, shapeData.length);
 
-    // Permet de ne pas avoir des marqueurs trop proches les uns des autres
-    while (isTooClose(lat, lng, randSightings)) {
-        randIndex = getRandomInt(0, shapeData.length);
-        lat = shapeData[randIndex].latitude;
-        lng = shapeData[randIndex].longitude;
+        const lat = shapeData[randIndex].latitude;
+        const lng = shapeData[randIndex].longitude;
+
+        // Permet de ne pas avoir des marqueurs trop proches les uns des autres
+        while (isTooClose(lat, lng, randSightings)) {
+            randIndex = getRandomInt(0, shapeData.length);
+            lat = shapeData[randIndex].latitude;
+            lng = shapeData[randIndex].longitude;
+        }
+
+        randSightings.push(shapeData[randIndex]);
     }
 
-    randSightings.push(shapeData[randIndex]);    
+    return randSightings;
 }
 
 function isTooClose(lat, lng, array) {
@@ -92,26 +102,49 @@ function isTooClose(lat, lng, array) {
 --------------------------------------------------------*/
 
 // Fait un tableau de dates pour pouvoir ensuite les compter.
-const stringYearData = shapeData.map(d => dateFormat(parseTime(d.datetime)));
-export const dateYearData = stringYearData.map(d => parseYear(d));
+export function getStringYearData() {
+    const shapeData = filterShapeData();
+
+    return shapeData.map(d => dateFormat(parseTime(d.datetime)));
+}
+
+// Fait un tableau de dates pour pouvoir ensuite les compter.
+export function getDateYearData() {
+    return getStringYearData().map(d => parseYear(d));
+}
 
 // Crée un objet avec les années comme propriétés et le nombre d'entrées comme valeurs.
-const count = {};
+function countEntries() {
+    const stringYearData = getStringYearData();
 
-for (const year of stringYearData) {
-    count[year] = count[year] ? count[year] + 1 : 1;
+    const count = {};
+
+    for (const year of stringYearData) {
+        count[year] = count[year] ? count[year] + 1 : 1;
+    }
+
+    return count;
 }
 
 // Crée un tableau avec pour clé l'année et pour valeur le nombre d'entrées.
-export const entriesPerYear = [];
+export function getEntriesPerYear() {
+    const entriesPerYear = [];
+    const count = countEntries();
 
-for (const [year, amount] of Object.entries(count)) {
-    entriesPerYear.push({
-        'year' : parseYear(year),
-        'amount' : amount
-    })
+    for (const [year, amount] of Object.entries(count)) {
+        entriesPerYear.push({
+            'year': parseYear(year),
+            'amount': amount
+        })
+    }
+
+    return entriesPerYear;
 }
 
 // défini le nombre d'entrées max.
-export const maxAmountRounded = Math.ceil(d3.max(Object.values(count)) / 100) * 100;
+export function getMaxAmountRounded() {
+    let maxRounded = Math.ceil(d3.max(Object.values(countEntries())) / 100) * 100;
+    if (maxRounded / 100 % 2 != 0 && maxRounded < 1000) maxRounded += 100;
 
+    return maxRounded;
+}

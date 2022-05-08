@@ -80,14 +80,14 @@ main {
 }
 
 .movie .title {
-    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    font-size: clamp(0.8rem, 1.1vw, 0.9rem);
     font-weight: 500;
     text-transform: uppercase;
     color: var(--highlights-color);
 }
 
 .movie .prod, .movie .prod span, .director, .stars {
-    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    font-size: clamp(0.8rem, 1.1vw, 0.9rem);
     font-weight: 400;
     color: #7A7A7A;
 }
@@ -97,7 +97,7 @@ main {
 }
 
 .movie .synopsis {
-    font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+    font-size: clamp(0.8rem, 1.1vw, 0.9rem);
     font-weight: 300;
     line-height: clamp(1rem, 1.5vw, 1.2rem);
 }
