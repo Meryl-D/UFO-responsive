@@ -12,6 +12,13 @@ main {
     height:100%;
 }
 
+/* .active-area {
+    position: absolute;
+    height: 100%;
+    width: calc(100% - clamp(420px, 40vw, 500px) - clamp(25px, 2.5vw, 50px));
+    right: 0;
+} */
+
 .leaflet-bottom .leaflet-control-zoom {
     margin: var(--window-margin);
     z-index: 999;

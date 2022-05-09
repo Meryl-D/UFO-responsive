@@ -5,10 +5,16 @@ import { renderChart, renderMovie } from '/src/js/pageTwo/card.js';
 
 if (window.location.pathname != '/') {
 
-    storage.setItem('shape', 'circle');
+    storage.setItem('shape', 'triangle');
 
     renderMap();
-    renderChart();
+    renderChart()
     renderMovie();
+
+    // rend le graphe responsive
+    window.addEventListener('resize', () => {
+        document.querySelector('.graph').replaceChildren();
+        renderChart();
+    })
 
 }
