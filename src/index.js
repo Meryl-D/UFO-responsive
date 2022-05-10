@@ -4,11 +4,15 @@ import { storage } from '/src/js/lib/storage.js';
 import { renderChart, renderMovie, renderUfoImg } from '/src/js/pageTwo/card.js';
 import * as d3 from 'd3';
 
-d3.select('body').on('click', evt => {
-    if (!evt.target.classList.contains('shape-btn')) return;
-    storage.setItem('shape', evt.target.dataset.shape);
-    window.location.pathname = '/map.html';
-})
+const shapes = document.querySelectorAll('.shape-btn');
+console.log(shapes);
+shapes.forEach(shape => {
+    shape.addEventListener('click', evt => {
+        storage.setItem('shape', evt.currentTarget.dataset.shape);
+        window.location.pathname = '/map.html';
+
+    });
+});
 
 if (window.location.pathname != '/') {
 

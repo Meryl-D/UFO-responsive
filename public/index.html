@@ -20,7 +20,7 @@
 <body>
     <h1>Choose an UFO shape</h1>
     <!--------------------------------------------- F I R E B A L L ---------------------------------------------------->
-    <svg width="450" height="450">
+    <svg width="450" height="450" class="shape-btn" data-shape="fireball">
         <title>Fireball shape</title>
         <defs>
             <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
@@ -44,7 +44,7 @@
                 </g>
             </symbol>
         </defs>
-        <use xlink:href="#fireball"  class="shape-btn" data-shape="fireball"/>
+        <use xlink:href="#fireball"/>
         <linearGradient id="paint0_linear_11_24" x1="158" y1="0.999994" x2="21" y2="153" gradientUnits="userSpaceOnUse">
             <stop stop-color="#FF3E01" />
             <stop offset="1" stop-color="#FFAA01" />
@@ -58,7 +58,7 @@
 
 
     <!--------------------------------------------- C I R C L E ---------------------------------------------------->
-    <svg width="450" height="450">
+    <svg width="450" height="450" class="shape-btn" data-shape="circle">
         <title>Circle shape</title>
         <defs>
             <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
@@ -103,14 +103,14 @@
                 <stop offset="1" stop-color="white" stop-opacity="0" />
             </linearGradient>
         </defs>
-        <use xlink:href="#circleUFO" class="shape-btn" data-shape="circle"/>
+        <use xlink:href="#circleUFO"/>
         <text class="UfoName" dy="70" textLength="1220">
             <textPath xlink:href="#textcircle">Circle ⋅ Circle ⋅</textPath>
         </text>
     </svg>
 
     <!--------------------------------------------- T R I A N G L E ---------------------------------------------------->
-    <svg width="450" height="450">
+    <svg width="450" height="450" class="shape-btn" data-shape="triangle">
         <title>Triangle shape</title>
         <defs>
             <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
@@ -144,7 +144,7 @@
                 </g>
             </symbol>
         </defs>
-        <use xlink:href="#triangle" class="shape-btn" data-shape="triangle"/>
+        <use xlink:href="#triangle"/>
         <text class="UfoName" dy="70" textLength="1220">
             <textPath xlink:href="#textcircle">Triangle ⋅ Triangle ⋅</textPath>
         </text>
@@ -152,7 +152,7 @@
 
     <!--------------------------------------------- L I G H T ---------------------------------------------------->
     <div id="align">
-        <svg width="450" height="450">
+        <svg width="450" height="450" class="shape-btn" data-shape="light">
             <title>Light shape</title>
             <defs>
                 <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
@@ -174,14 +174,14 @@
                     </g>
                 </symbol>
             </defs>
-            <use xlink:href="#light" class="shape-btn" data-shape="light"/>
+            <use xlink:href="#light"/>
             <text class="UfoName" dy="70" textLength="1220">
                 <textPath xlink:href="#textcircle">Light ⋅ Light ⋅</textPath>
             </text>
         </svg>
 
         <!--------------------------------------------- U N K N O W N ---------------------------------------------------->
-        <svg width="450" height="450">
+        <svg width="450" height="450" class="shape-btn" data-shape="unknown">
             <title>Unknown shape</title>
             <defs>
                 <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
@@ -212,7 +212,7 @@
                     <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_106_25" result="shape" />
                 </filter>
             </defs>
-            <use xlink:href="#unknown" class="shape-btn" data-shape="unknown"/>
+            <use xlink:href="#unknown"/>
             <text class="UfoName" dy="70" textLength="1220">
                 <textPath xlink:href="#textcircle">Unknown ⋅ Unknown ⋅</textPath>
             </text>
