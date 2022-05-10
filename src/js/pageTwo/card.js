@@ -1,7 +1,8 @@
 import * as d3 from 'd3';
-import { getMaxAmountRounded, getEntriesPerYear, getDateYearData } from "/src/js/data/ufoData.js";
+import { getMaxAmountRounded, getEntriesPerYear, getDateYearData, parseYear } from "/src/js/data/ufoData.js";
 import { movieData } from '/src/js/data/movieData.js';
 import { storage } from '/src/js/lib/storage.js';
+import { svg } from 'd3';
 
 /**--------------------------------
  Changement dynamique du titre
@@ -18,7 +19,7 @@ d3.formatDefaultLocale('fr_FR');
 /**--------------------------------
  Graphe du nombre d'entrées par an
  --------------------------------*/
-export function renderChart() {
+ export function renderChart() {
     const maxRounded = getMaxAmountRounded();
     const dateYearData = getDateYearData();
     const entriesPerYear = getEntriesPerYear();
@@ -66,8 +67,7 @@ export function renderChart() {
         )
     
     //Ajoute le film au graphe
-    addMovieToChart(svg, x, y, maxRounded);
-    
+    addMovieToChart(svg, x, y, maxRounded);   
 }
 
 
@@ -108,11 +108,12 @@ function addMovieToChart(svg, x, y, maxRounded) {
         .data(movieInfoArr)
         .enter()
         .append("line")
-        .attr("x1", d => x(d.releaseYear))
-        .attr("x2", d => x(d.releaseYear))
-        .attr("y1", y(0))
-        .attr("y2", d => y(maxRounded / 2))
-        .attr("stroke", "#fff");
+        .attr("x1", d => x(parseYear(d.releaseYear)))
+        .attr("x2", d => x(parseYear(d.releaseYear)))
+        .attr("y1", d => y(maxRounded / 2))
+        .attr("y2", y(0))
+        .attr("stroke", "#fff")
+
 
     // Ajoute le titre sur le graphe
     svg.selectAll(".text")
@@ -120,11 +121,11 @@ function addMovieToChart(svg, x, y, maxRounded) {
         .enter()
         .append("text")
         .attr("class", "label")
-        .attr("x", d => x(d.releaseYear))
+        .attr("x", d => x(parseYear(d.releaseYear)))
         .attr("y", d => y(maxRounded / 2 + 60))
         //.attr("dy", ".75em")
         .attr("text-anchor", "middle")
         .attr("fill", "#fff")
         .attr("font-size", ".7em")
-        .text(d => d.title);
+        .text(d => d.title)
 }
