@@ -155,7 +155,7 @@ main {
 
 nav {
     display: flex;
-    justify-content: end;
+    align-items: center;
 
     position: absolute;
     z-index: 999;
@@ -175,4 +175,10 @@ a.button {
 
 a.button:hover {
     background-color: var(--highlights-color);
+}
+
+.ufo-img {
+    max-width: 6rem;
+    max-height: 4rem;
+    padding-right: 2rem;
 }
