@@ -2,17 +2,6 @@ import * as d3 from 'd3';
 import { getMaxAmountRounded, getEntriesPerYear, getDateYearData, parseYear } from "/src/js/data/ufoData.js";
 import { movieData } from '/src/js/data/movieData.js';
 import { storage } from '/src/js/lib/storage.js';
-import { svg } from 'd3';
-
-/**--------------------------------
- Changement dynamique du titre
- --------------------------------*/
-//  const shapeCaps = shape.toUpperCase();
-//  console.log(shapeCaps);
-
-// d3.select(".movie h2 em")
-//     .text(`${shapeCaps}`);
-
 
 d3.formatDefaultLocale('fr_FR');
 
@@ -80,7 +69,7 @@ export function renderMovie() {
 
     // Ajoute les infos sur le film dans la card
     const movieContainer = d3.select('.movie');
-    const moviePoster = require(`../../../assets/img/${movieInfo.img}`);
+    const moviePoster = require(`/assets/img/${movieInfo.img}`);
 
     movieContainer.select('.movie-poster').attr('src', moviePoster);
 
@@ -128,4 +117,11 @@ function addMovieToChart(svg, x, y, maxRounded) {
         .attr("fill", "#fff")
         .attr("font-size", ".7em")
         .text(d => d.title)
+}
+
+export function renderUfoImg() {
+    const movieInfo = getMovieInfoArr()[0];
+    const ufoImg = require(`/assets/img/${movieInfo.ufoImg}`);
+
+    d3.select('.ufo-img').attr('src', ufoImg);
 }
