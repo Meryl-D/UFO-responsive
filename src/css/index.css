@@ -59,3 +59,7 @@ h1{
 /* ----- F I R E B A L L   U F O   S H A P E ----- */
 
 #circle { fill: #FAFF00; }
+
+#align{
+    padding-left: 220px;
+}
