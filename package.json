@@ -2,9 +2,9 @@
   "name": "ufo",
   "version": "1.0.0",
   "description": "VisualDon Project",
-  "main": "docs/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "babel docs -d lib",
+    "build": "babel src -d lib",
     "start": "webpack-dev-server"
   },
   "author": "Clarisse Gagnebin, Meryl Dubois",
