@@ -2,7 +2,7 @@ const path = require('path');const HtmlWebpackPlugin = require('html-webpack-plu
 
 module.exports = {
     name: 'browser',
-    mode: 'development',
+    mode: 'production',
     entry: './src/index.js',
     output: {
         path: path.resolve('dist'),
