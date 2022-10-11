@@ -19,14 +19,15 @@
 
 <body>
     <h1>Choose an UFO shape</h1>
+    <main class="shapes">
     <!--------------------------------------------- F I R E B A L L ---------------------------------------------------->
-    <svg width="450" height="450" class="shape-btn" data-shape="fireball">
+    <svg viewbox="40 40 420 420" preserveAspectRatio="xMidYMid meet" class="shape-btn fireball" data-shape="fireball">
         <title>Fireball shape</title>
         <defs>
             <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
-                id="textcircle">
+                id="path-fireball">
                 <animateTransform attributeName="transform" begin="0s" dur="30s" type="rotate" from="0 250 250"
-                    to="360 250 250" repeatCount="indefinite" />
+                to="360 250 250" repeatCount="indefinite" />
                 <!-- SMIL animation: deprecated in Chrome, so eventually will have to be replaced with Web Animation API or alternative -->
             </path>
             <symbol id="fireball">
@@ -52,13 +53,13 @@
 
         <text class="UfoName" dy="70" textLength="1220">
             <!-- textLength (essentially the circumference of the circle) is used as an alternative to letter-spacing for Firefox, which currently doesn't support letter-spacing for SVG -->
-            <textPath xlink:href="#textcircle">Fireball ⋅ Fireball ⋅</textPath>
+            <textPath xlink:href="#path-fireball">Fireball ⋅ Fireball ⋅</textPath>
         </text>
     </svg>
 
 
     <!--------------------------------------------- C I R C L E ---------------------------------------------------->
-    <svg width="450" height="450" class="shape-btn" data-shape="circle">
+    <svg viewbox="40 40 420 420" preserveAspectRatio="xMidYMid meet" class="shape-btn circle" data-shape="circle">
         <title>Circle shape</title>
         <defs>
             <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
@@ -110,13 +111,13 @@
     </svg>
 
     <!--------------------------------------------- T R I A N G L E ---------------------------------------------------->
-    <svg width="450" height="450" class="shape-btn" data-shape="triangle">
+    <svg viewbox="40 40 420 420" preserveAspectRatio="xMidYMid meet" class="shape-btn triangle" data-shape="triangle">
         <title>Triangle shape</title>
         <defs>
             <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
                 id="textcircle">
                 <animateTransform attributeName="transform" begin="0s" dur="30s" type="rotate" from="0 250 250"
-                    to="360 250 250" repeatCount="indefinite" />
+                to="360 250 250" repeatCount="indefinite" />
             </path>
             <symbol id="triangle">
                 <g transform="translate(140,160)">
@@ -151,14 +152,13 @@
     </svg>
 
     <!--------------------------------------------- L I G H T ---------------------------------------------------->
-    <div id="align">
-        <svg width="450" height="450" class="shape-btn" data-shape="light">
+        <svg viewbox="40 40 420 420" preserveAspectRatio="xMidYMid meet" class="shape-btn light" data-shape="light">
             <title>Light shape</title>
             <defs>
                 <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
                     id="textcircle">
                     <animateTransform attributeName="transform" begin="0s" dur="30s" type="rotate" from="0 250 250"
-                        to="360 250 250" repeatCount="indefinite" />
+                    to="360 250 250" repeatCount="indefinite" />
                 </path>
                 <symbol id="light">
                     <g transform="translate(175,175)">
@@ -181,13 +181,13 @@
         </svg>
 
         <!--------------------------------------------- U N K N O W N ---------------------------------------------------->
-        <svg width="450" height="450" class="shape-btn" data-shape="unknown">
+        <svg viewbox="40 40 420 420" preserveAspectRatio="xMidYMid meet" class="shape-btn unknown" data-shape="unknown">
             <title>Unknown shape</title>
             <defs>
                 <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
                     id="textcircle">
                     <animateTransform attributeName="transform" begin="0s" dur="30s" type="rotate" from="0 250 250"
-                        to="360 250 250" repeatCount="indefinite" />
+                    to="360 250 250" repeatCount="indefinite" />
                 </path>
                 <symbol id="unknown">
                     <g transform="translate(220,190)">
@@ -217,7 +217,7 @@
                 <textPath xlink:href="#textcircle">Unknown ⋅ Unknown ⋅</textPath>
             </text>
         </svg>
-    </div>
+    </main>
 
 </body>
 
