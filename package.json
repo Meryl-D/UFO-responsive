@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "VisualDon Project",
   "main": "src/index.js",
-  "type": "module",
   "scripts": {
     "build": "babel src -d lib",
     "start": "webpack-dev-server"
