@@ -2,7 +2,7 @@ const path = require('path');const HtmlWebpackPlugin = require('html-webpack-plu
 
 module.exports = {
     name: 'browser',
-    mode: 'production',
+    mode: 'development',
     entry: './src/index.js',
     output: {
         path: path.resolve('dist'),
@@ -14,10 +14,7 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
-                use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader", option: { modules: true } }
-                ],
+                use: ["style-loader", "css-loader"],
             },
             { 
                 test: /\.js$/,
