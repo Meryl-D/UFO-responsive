@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     name: 'browser',
-    mode: 'development',
+    mode: 'production',
     entry: {
         index: './src/index.js',
         mapModule: './src/mapModule.js',
@@ -25,6 +25,10 @@ module.exports = {
             }
           }
         }
+    },
+    performance: {
+        maxAssetSize: 800000,
+        maxEntrypointSize: 800000,
     },
     module: {
         rules: [

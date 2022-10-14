@@ -8,13 +8,13 @@ d3.formatDefaultLocale('fr_FR');
 /**--------------------------------
  Graphe du nombre d'entrées par an
  --------------------------------*/
- export function renderChart() {
-    const maxRounded = getMaxAmountRounded();
-    const dateYearData = getDateYearData();
-    const entriesPerYear = getEntriesPerYear();
+ export function renderChart(stringYearData) {
+    const maxRounded = getMaxAmountRounded(stringYearData);
+    const dateYearData = getDateYearData(stringYearData);
+    const entriesPerYear = getEntriesPerYear(stringYearData);
 
     // Défini les dimensions et marges du graphe
-    const margin = { top: 7, right: 12, bottom: 16, left: 31 },
+    const margin = { top: 7, right: 12, bottom: 19, left: 31 },
         width = parseInt(d3.select('.graph').style('width'), 10) - margin.left - margin.right,
         height = parseInt(d3.select('.graph').style('height'), 10) - margin.top - margin.bottom;
 
@@ -111,7 +111,7 @@ function addMovieToChart(svg, x, y, maxRounded) {
         .append("text")
         .attr("class", "label")
         .attr("x", d => x(parseYear(d.releaseYear)))
-        .attr("y", d => y(maxRounded / 2 + 60))
+        .attr("y", d => y(maxRounded / 2 + 2))
         //.attr("dy", ".75em")
         .attr("text-anchor", "middle")
         .attr("fill", "#fff")

@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { filterShapeData, getRandSightings } from "/src/js/data/ufoData.js";
+import { getRandSightings } from "/src/js/data/ufoData.js";
 import L from 'leaflet';
 import 'leaflet.heat';
 import alienIcon from '/assets/img/alien-pin-shadow.png';
@@ -43,7 +43,7 @@ function renderTileLayer() {
 /**--------------------------
  Marqueurs et popups
  --------------------------*/
-function renderMarkers(map) {
+function renderMarkers(map, shapeData) {
     const alienPin = L.icon({
         iconUrl: alienIcon,
 
@@ -52,10 +52,10 @@ function renderMarkers(map) {
         popupAnchor: [0, -35] // point from which the popup should open relative to the iconAnchor
     });
 
-    const randSightings = getRandSightings();
+    const randSightings = getRandSightings(shapeData);
     // Ajoute les marqueurs
     randSightings.forEach(sighting => {
-        let marker = L.marker([sighting.latitude, sighting.longitude], { icon: alienPin }).addTo(map);
+        let marker = L.marker([parseFloat(sighting.latitude), parseFloat(sighting.longitude)], { icon: alienPin }).addTo(map);
         marker.bindPopup(`\"${sighting.comments}\"`);
     })
 }
@@ -64,29 +64,28 @@ function renderMarkers(map) {
 /**--------------------------
  Couche heatmap
  --------------------------*/
-function renderHeatMapLayer(map) {
-    const shapeData = filterShapeData();
+function renderHeatMapLayer(map, shapeData) {
     const heatMapArray = [];
 
     shapeData.forEach(d => {
         let heatMapPoint = {
-            lat: d.latitude,
-            lon: d.longitude
+            lat: parseFloat(d.latitude),
+            lon: parseFloat(d.longitude)
         };
 
         heatMapArray.push(heatMapPoint);
     });
 
     const heatMap = L.heatLayer(heatMapArray, {
-        radius: 15,
-        blur: 10,
+        radius: 35,
+        blur: 13,
         minOpacity: 0.15,
         gradient: { 0.1: '#FF33B1', 0.5: '#16F2F2', 0.7: '#A0FF00' }
     }).addTo(map);
 }
 
-export function renderMap() {
+export function renderMap(shapeData) {
     const map = renderTileLayer();
-    renderMarkers(map);
-    renderHeatMapLayer(map);
+    renderMarkers(map, shapeData);
+    renderHeatMapLayer(map, shapeData);
 }
