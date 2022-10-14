@@ -1,15 +1,31 @@
-const path = require('path');const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     name: 'browser',
     mode: 'development',
-    entry: './src/index.js',
+    entry: {
+        index: './src/index.js',
+        mapModule: './src/mapModule.js',
+    },
     output: {
         path: path.resolve('dist'),
-        filename: 'index_bundle.js',
+        filename: '[name].bundle.js',
+        clean: true,
         assetModuleFilename: 'assets/img/[name].[ext]'
     },
-
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all'
+            }
+          }
+        }
+    },
     module: {
         rules: [
             {
