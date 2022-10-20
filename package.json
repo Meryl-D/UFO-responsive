@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "babel src -d lib",
-    "start": "webpack-dev-server"
+    "start": "node ./bin/start"
   },
   "author": "Clarisse Gagnebin, Meryl Dubois",
   "license": "ISC",
