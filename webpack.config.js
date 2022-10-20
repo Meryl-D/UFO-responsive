@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     name: 'browser',
-    mode: 'production',
+    mode: 'development',
     entry: {
         index: './src/index.js',
         mapModule: './src/mapModule.js',
